@@ -114,6 +114,15 @@ export default function DashboardDokter() {
       }
     }
 
+    // Create payment record
+    await supabase.from("payments").insert({
+      patient_id: selectedQueue.patient_id,
+      examination_id: examData.id,
+      amount: 0,
+      payment_method: "cash",
+      status: "pending",
+    });
+
     await supabase
       .from("patient_queue")
       .update({ status: "completed" })
